@@ -1,0 +1,13 @@
+body {
+	background: "background.png";
+	padding: 3%;
+}
+
+img {
+	width: 50%;
+	height: auto;
+}
+
+.titleCard {
+	text-align: center;
+}
