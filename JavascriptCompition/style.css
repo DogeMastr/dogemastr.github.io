@@ -11,3 +11,8 @@ img {
 .titleCard {
 	text-align: center;
 }
+
+canvas {
+	margin: 0 auto;
+	display: block;
+}
