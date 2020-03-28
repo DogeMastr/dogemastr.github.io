@@ -1,6 +1,8 @@
 body {
+	font-family: "Lucida Console", Courier, monospace;
 	background: "background.png";
 	padding: 3%;
+	color: white;
 }
 
 img {
@@ -15,4 +17,15 @@ img {
 canvas {
 	margin: 0 auto;
 	display: block;
+}
+
+.game {
+	text-align: center;
+}
+
+.score {
+	font-size: 30px;
+	position: absolute;
+	bottom: 8vh;
+	left: 15vw;
 }
