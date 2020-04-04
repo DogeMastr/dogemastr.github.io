@@ -9,10 +9,9 @@ let squarePos = 74.5;
 
 if (typeof localStorage.getItem("highScoreKey") === undefined) {
 	localStorage.setItem("highScoreKey", 0);
-	console.log("Highscore Set to 0")
+	console.log("Highscore Set to 0");
 }
 var highScore = localStorage.getItem("highScoreKey");
-
 
 function setup() {
 	createCanvas(1400, 400);
