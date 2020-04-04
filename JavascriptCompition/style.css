@@ -29,3 +29,11 @@ canvas {
 	bottom: 8vh;
 	left: 15vw;
 }
+
+.highScore {
+	float: right;
+	font-size: 30px;
+	position: absolute;
+	bottom: 8vh;
+	right: 15vw;
+}

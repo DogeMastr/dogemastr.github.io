@@ -7,6 +7,13 @@ let gameover = false;
 let squareGap = -60;
 let squarePos = 74.5;
 
+if (typeof localStorage.getItem("highScoreKey") === undefined) {
+	localStorage.setItem("highScoreKey", 0);
+	console.log("Highscore Set to 0")
+}
+var highScore = localStorage.getItem("highScoreKey");
+
+
 function setup() {
 	createCanvas(1400, 400);
 	player1 = new Player();
@@ -30,18 +37,18 @@ function draw() {
 
 		player1.run();
 		score++;
-		//console.log(keyList);
-		document.getElementById("scoreText").innerText = "Score: " + score;
-
-		if (keyList.includes(" ")) {
-			squareList.push(new Square(-90, 185, 10));
-		}
-
 		timer++;
 		if (timer > 60) { //larger the number the easier the game is
 			sendSquares();
 			timer = 0;
 		}
+		if (score > highScore) {
+			highScore = score;
+		}
+
+		//console.log(keyList);
+		document.getElementById("scoreText").innerText = "Score: " + score;
+		document.getElementById("highScoreText").innerText = "High Score: " + highScore;
 
 
 	} else {
@@ -181,6 +188,7 @@ function sendSquares() {
 
 function reset() {
 	//check highscores:
+	localStorage.setItem("highScoreKey", highScore);
 
 	//reset game
 	player1 = new Player();
@@ -207,7 +215,7 @@ function keyReleased() {
 
 class Player {
 	constructor() {
-		this.x = 0;
+		this.x = window.width / 2;
 		this.y = 0;
 		this.xSpeed = 10;
 		this.ySpeed = 10;
