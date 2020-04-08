@@ -1,6 +1,6 @@
 body {
 	font-family: "Lucida Console", Courier, monospace;
-	background: "background.png";
+	background-image: url("background.png");
 	padding: 3%;
 	color: white;
 }
@@ -12,6 +12,7 @@ img {
 
 .titleCard {
 	text-align: center;
+	image: url("titleCard.png")
 }
 
 canvas {
