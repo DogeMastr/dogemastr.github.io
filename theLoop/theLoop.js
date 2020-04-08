@@ -11,6 +11,10 @@ let pSpriteL;
 var highScore = 0;
 var hardHighScore = 0;
 
+function preLoad() {
+	pSpriteL = loadImage("data\sprites\player left.png");
+}
+
 function setup() {
 
 	if (typeof localStorage.getItem("highScoreKey") === undefined) {
@@ -34,8 +38,13 @@ function setup() {
 
 function draw() {
 	if (gameover == false) {
-		background(30);
-		image(pSpriteL, 0, 0);
+		// background(3);
+		clear();
+		stroke(70);
+		strokeWeight(10);
+		line(0, window.height, window.width, window.height);
+		line(0, 0, window.width, 0);
+		strokeWeight(0);
 
 		runSquares();
 		player1.run();

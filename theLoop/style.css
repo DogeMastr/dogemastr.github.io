@@ -1,6 +1,7 @@
 body {
 	font-family: "Lucida Console", Courier, monospace;
 	background-image: url("background.png");
+	background-size: cover;
 	padding: 3%;
 	color: white;
 }
