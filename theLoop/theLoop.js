@@ -3,6 +3,7 @@ let score = 0;
 let squareList = [];
 let timer = 0;
 let hardMode = false;
+let invisMode = false;
 let gameover = false;
 let squareGap = -60;
 let squarePos = 74.5;
@@ -10,10 +11,6 @@ let squarePos = 74.5;
 let pSpriteL;
 var highScore = 0;
 var hardHighScore = 0;
-
-function preLoad() {
-	pSpriteL = loadImage("data\sprites\player left.png");
-}
 
 function setup() {
 
@@ -29,8 +26,6 @@ function setup() {
 	}
 	hardHighScore = localStorage.getItem("hardHighScoreKey");
 
-
-	pSpriteL = loadImage("data/sprites/playerLeft.png");
 	createCanvas(1400, 400);
 	player1 = new Player();
 	score = 0;
@@ -39,12 +34,16 @@ function setup() {
 function draw() {
 	if (gameover == false) {
 		// background(3);
-		clear();
-		stroke(70);
-		strokeWeight(10);
-		line(0, window.height, window.width, window.height);
-		line(0, 0, window.width, 0);
-		strokeWeight(0);
+		if (!invisMode) {
+			clear();
+			stroke(70);
+			strokeWeight(10);
+			line(0, window.height, window.width, window.height);
+			line(0, 0, window.width, 0);
+			strokeWeight(0);
+		} else {
+			strokeWeight(1);
+		}
 
 		runSquares();
 		player1.run();
@@ -84,12 +83,13 @@ function draw() {
 		if (keyList.includes("r")) {
 			reset();
 		}
+		if (keyList.includes("v")) {
+			invisMode = !invisMode;
+			clear();
+			reset();
+		}
 		if (keyList.includes("b")) {
-			if (hardMode) {
-				hardMode = false;
-			} else {
-				hardMode = true;
-			}
+			hardMode = !hardMode;
 			reset();
 		}
 	}
