@@ -5,7 +5,7 @@ let timer = 0;
 let hardMode = false;
 let invisMode = false;
 let gameover = false;
-let squareGap = -60;
+let squareGap = -75;
 let squarePos = 74.5;
 
 let pSpriteL;
@@ -26,7 +26,8 @@ function setup() {
 	}
 	hardHighScore = localStorage.getItem("hardHighScoreKey");
 
-	createCanvas(1400, 400);
+	var canvas = createCanvas(1400, 400);
+	canvas.parent('game');
 	player1 = new Player();
 	score = 0;
 }
@@ -44,7 +45,6 @@ function draw() {
 		} else {
 			strokeWeight(1);
 		}
-
 		runSquares();
 		player1.run();
 		score++;

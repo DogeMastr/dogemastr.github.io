@@ -1,7 +1,7 @@
 body {
 	font-family: "Lucida Console", Courier, monospace;
 	background-image: url("background.png");
-	background-size: cover;
+	/* background-size: cover; */
 	padding: 3%;
 	color: white;
 }
@@ -39,3 +39,5 @@ canvas {
 	bottom: 8vh;
 	right: 15vw;
 }
+
+.info {}
