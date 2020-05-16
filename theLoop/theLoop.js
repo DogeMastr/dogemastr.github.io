@@ -4,6 +4,7 @@ let squareList = [];
 let timer = 0;
 let hardMode = false;
 let invisMode = false;
+let slowMode = false;
 let gameover = false;
 let squareGap = -75;
 let squarePos = 74.5;
@@ -17,7 +18,10 @@ let pvFN = -1; //previous formation
 let pause = true;
 let kpress = false;
 
-let leaderboardTxt;
+let controlList = ['a', 'd', 'r', 'p'];
+
+let mouse1fPress = false;
+// let leaderboardTxt;
 
 function preload() {
 	//leaderboardTxt = loadStrings('data/leaderboard/leaderboard.txt');
@@ -25,17 +29,18 @@ function preload() {
 
 function setup() {
 
-	if (typeof localStorage.getItem("highScoreKey") === undefined) {
+	if (typeof localStorage.getItem("highScoreKey") === undefined || localStorage.getItem("highScoreKey") == "null") {
 		localStorage.setItem("highScoreKey", 0);
 		console.log("Highscore Set to 0");
 	}
 	highScore = localStorage.getItem("highScoreKey");
 
-	if (typeof localStorage.getItem("hardHighScoreKey") === undefined) {
+	if (typeof localStorage.getItem("hardHighScoreKey") === undefined || localStorage.getItem("hardHighScoreKey") == "null") {
 		localStorage.setItem("hardHighScoreKey", 0);
 		console.log("Hard Highscore Set to 0");
 	}
 	hardHighScore = localStorage.getItem("hardHighScoreKey");
+
 	var canvas = createCanvas(1400, 400);
 	canvas.parent('game');
 	updateHTML();
@@ -49,25 +54,91 @@ function setup() {
 }
 
 function draw() {
+
+	if (keyList.includes(controlList[3]) && !kpress) {
+		pause = !pause;
+		kpress = true;
+	} else if (!keyList.includes(controlList[3])) {
+		kpress = false;
+	}
+
 	if (gameover == false) {
-
-		if (keyList.includes("p") && !kpress) {
-			pause = !pause;
-			kpress = true;
-		} else if (!keyList.includes("p")) {
-			kpress = false;
-		}
-
 
 		if (pause) {
 			clear();
 			textSize(40);
 			fill(255);
-			text("CONTROLS", window.width / 2, window.height / 5);
-			text("A & D - MOVE LEFT & RIGHT", window.width / 2, window.height / 5 * 2);
-			text("R - RESTART", window.width / 2, window.height / 5 * 3);
-			text("P - START GAME", window.width / 2, window.height / 5 * 4);
+			text(controlList[0] + " - MOVE LEFT", window.width / 3, window.height / 5);
+			text(controlList[1] + " - MOVE RIGHT", window.width / 3, window.height / 5 * 2);
+			text(controlList[2] + " - RETRY", window.width / 3, window.height / 5 * 3);
+			text(controlList[3] + " - START GAME", window.width / 3, window.height / 5 * 4);
+
+			if (mouseX > (window.width / 3 * 2) - 200 && mouseX < (window.width / 3 * 2) + 200 && mouseY > window.height / 5 - 25 && mouseY < window.height / 5 + 25) {
+				rectMode(CENTER);
+				rect(window.width / 3 * 2, window.height / 5, 400, 50);
+				rectMode(CORNER);
+				fill(0);
+
+				if (mouse1fPress) {
+					input = prompt("Change the Move Left key from: " + controlList[0] + ", to:");
+					if (input !== null) {
+						controlList[0] = input.charAt(0);
+					}
+				}
+			}
+			text("CHANGE KEY", window.width / 3 * 2, window.height / 5);
+			fill(255);
+
+			if (mouseX > (window.width / 3 * 2) - 200 && mouseX < (window.width / 3 * 2) + 200 && mouseY > window.height / 5 * 2 - 25 && mouseY < window.height / 5 * 2 + 25) {
+				rectMode(CENTER);
+				rect(window.width / 3 * 2, window.height / 5 * 2, 400, 50);
+				rectMode(CORNER);
+				fill(0);
+
+				if (mouse1fPress) {
+					input = prompt("Change the Move Left key from: " + controlList[1] + ", to:");
+					if (input !== null) {
+						controlList[1] = input.charAt(0);
+					}
+				}
+			}
+			text("CHANGE KEY", window.width / 3 * 2, window.height / 5 * 2);
+			fill(255);
+
+			if (mouseX > (window.width / 3 * 2) - 200 && mouseX < (window.width / 3 * 2) + 200 && mouseY > window.height / 5 * 3 - 25 && mouseY < window.height / 5 * 3 + 25) {
+				rectMode(CENTER);
+				rect(window.width / 3 * 2, window.height / 5 * 3, 400, 50);
+				rectMode(CORNER);
+				fill(0);
+
+				if (mouse1fPress) {
+					input = prompt("Change the Move Left key from: " + controlList[2] + ", to:");
+					if (input !== null) {
+						controlList[2] = input.charAt(0);
+					}
+				}
+			}
+			text("CHANGE KEY", window.width / 3 * 2, window.height / 5 * 3);
+			fill(255);
+
+			if (mouseX > (window.width / 3 * 2) - 200 && mouseX < (window.width / 3 * 2) + 200 && mouseY > window.height / 5 * 4 - 25 && mouseY < window.height / 5 * 4 + 25) {
+				rectMode(CENTER);
+				rect(window.width / 3 * 2, window.height / 5 * 4, 400, 50);
+				rectMode(CORNER);
+				fill(0);
+
+				if (mouse1fPress) {
+					input = prompt("Change the Move Left key from: " + controlList[3] + ", to:");
+					if (input !== null) {
+						controlList[3] = input.charAt(0);
+					}
+				}
+			}
+			text("CHANGE KEY", window.width / 3 * 2, window.height / 5 * 4);
+			fill(255);
+
 		} else {
+			rectMode(CORNER);
 			if (!invisMode) {
 				clear();
 				stroke(70);
@@ -78,7 +149,6 @@ function draw() {
 			} else {
 				strokeWeight(1);
 			}
-
 			runSquares();
 			player1.run();
 			score++;
@@ -87,19 +157,40 @@ function draw() {
 		}
 	} else {
 		//in gamemover menu
-		if (keyList.includes("r")) {
+		if (keyList.includes(controlList[2])) {
 			reset();
 		}
-		if (keyList.includes("v")) {
-			invisMode = !invisMode;
-			clear();
-			reset();
-		}
-		if (keyList.includes("b")) {
-			hardMode = !hardMode;
-			reset();
-		}
+		// 	if (keyList.includes("v")) {
+		// 		invisMode = !invisMode;
+		// 		clear();
+		// 		reset();
+		// 	}
+		// 	if (keyList.includes("b")) {
+		// 		hardMode = !hardMode;
+		// 		reset();
+		// 	}
+		// 	if (keyList.includes("s")) {
+		// 		slowMode = !slowMode;
+		// 		reset();
+		// 	}
 	}
+}
+
+let mouse1frame = true; //if true the user is allowed to click
+
+function mousePressed() {
+	if (mouse1frame == true) {
+		mouse1fPress = true;
+		console.log("clicked");
+	} else {
+		mouse1fPress = false;
+	}
+}
+
+function mouseReleased() {
+	mouse1frame = true;
+	mouse1fPress = false;
+	console.log("Released");
 }
 
 function updateHTML() {
@@ -139,6 +230,7 @@ function runSquares() {
 			squareList.splice(i, 1);
 			//gameover!
 			gameover = true;
+			//checkLeaderboard();
 		}
 	}
 }
@@ -320,6 +412,7 @@ function reset() {
 
 	//changing backgrounds
 	if (hardMode) {
+		slowMode = false; //no slowmode in hard mode :)
 		document.getElementById("titleCard").src = "titleCard2.png";
 		document.body.style.backgroundImage = "url('background2.png')";
 	} else {
@@ -327,17 +420,18 @@ function reset() {
 		document.body.style.backgroundImage = "url('background.png')";
 	}
 
+	if (slowMode) {
+		frameRate(30);
+	} else {
+		frameRate(60);
+	}
+
 	//reset game
+	gameover = false;
 	player1 = new Player();
 	score = 0;
 	squareList = [];
-	gameover = false;
 	draw();
-}
-
-function startScreen() {
-
-
 }
 
 function keyTyped() {
@@ -376,10 +470,10 @@ class Player {
 		//image(pSpriteL, this.x, this.y, this.pWidth, this.pWidth);
 	}
 	move() {
-		if (keyList.includes("a")) {
+		if (keyList.includes(controlList[0])) {
 			this.x -= this.xSpeed;
 		}
-		if (keyList.includes("d")) {
+		if (keyList.includes(controlList[1])) {
 			this.x += this.xSpeed;
 		}
 		//bouncing on the top and bottom of the screen:
@@ -450,14 +544,15 @@ class Square {
  	saved in a text file
 
  	Name ^Score
- */
+
+
 let splitLeaderboard;
 let leaderboardNames = [];
 let leaderboardScores = [];
 
 function loadLeaderboard() {
 
-	for (i = 0; i < 10; i++) {
+	for (i = 0; i < 5; i++) {
 		let splitLeaderboard = split(leaderboardTxt[i], '^');
 		console.log(splitLeaderboard);
 		leaderboardNames[i] = splitLeaderboard[0];
@@ -495,4 +590,15 @@ function checkLeaderboard() {
 		leaderboardNames[4] = currentName;
 		leaderboardScores[4] = score;
 	}
+
+	saveLeaderboard();
 }
+
+function saveLeaderboard() {
+	for (i = 0; i < 5; i++) {
+		leaderboardTxt[i] = leaderboardNames[i] + "^:" + leaderboardScores[i];
+	}
+	//leaderboardTxt = saveStrings("data/leaderboard/leaderboard.txt");
+}
+
+*/
