@@ -21,10 +21,10 @@ let kpress = false;
 let controlList = ['a', 'd', 'r', 'p'];
 
 let mouse1fPress = false;
-// let leaderboardTxt;
+let leaderboardTxt;
 
 function preload() {
-	//leaderboardTxt = loadStrings('data/leaderboard/leaderboard.txt');
+	leaderboardTxt = loadStrings('data/leaderboard/leaderboard.txt');
 }
 
 function setup() {
@@ -50,7 +50,7 @@ function setup() {
 
 	pSpriteL = loadImage("data/sprites/playerLeft.png");
 
-	//loadLeaderboard();
+	loadLeaderboard();
 }
 
 function draw() {
@@ -230,7 +230,7 @@ function runSquares() {
 			squareList.splice(i, 1);
 			//gameover!
 			gameover = true;
-			//checkLeaderboard();
+			checkLeaderboard();
 		}
 	}
 }
@@ -538,13 +538,6 @@ class Square {
 	}
 }
 
-/*
-	Leaderboard stuff
-
- 	saved in a text file
-
- 	Name ^Score
-
 
 let splitLeaderboard;
 let leaderboardNames = [];
@@ -598,7 +591,5 @@ function saveLeaderboard() {
 	for (i = 0; i < 5; i++) {
 		leaderboardTxt[i] = leaderboardNames[i] + "^:" + leaderboardScores[i];
 	}
-	//leaderboardTxt = saveStrings("data/leaderboard/leaderboard.txt");
+	leaderboardTxt = saveStrings("data/leaderboard/leaderboard.txt");
 }
-
-*/
