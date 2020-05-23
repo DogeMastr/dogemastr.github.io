@@ -21,11 +21,6 @@ let kpress = false;
 let controlList = ['a', 'd', 'r', 'p'];
 
 let mouse1fPress = false;
-let leaderboardTxt;
-
-function preload() {
-	leaderboardTxt = loadStrings('data/leaderboard/leaderboard.txt');
-}
 
 function setup() {
 
@@ -50,7 +45,6 @@ function setup() {
 
 	pSpriteL = loadImage("data/sprites/playerLeft.png");
 
-	loadLeaderboard();
 }
 
 function draw() {
@@ -536,60 +530,4 @@ class Square {
 		}
 		return false;
 	}
-}
-
-
-let splitLeaderboard;
-let leaderboardNames = [];
-let leaderboardScores = [];
-
-function loadLeaderboard() {
-
-	for (i = 0; i < 5; i++) {
-		let splitLeaderboard = split(leaderboardTxt[i], '^');
-		console.log(splitLeaderboard);
-		leaderboardNames[i] = splitLeaderboard[0];
-		leaderboardScores[i] = splitLeaderboard[1];
-	}
-
-	document.getElementById("lb0").innerText = "1." + leaderboardNames[0] + ":" + leaderboardScores[0];
-	document.getElementById("lb1").innerText = "2." + leaderboardNames[1] + ":" + leaderboardScores[1];
-	document.getElementById("lb2").innerText = "3." + leaderboardNames[2] + ":" + leaderboardScores[2];
-	document.getElementById("lb3").innerText = "4." + leaderboardNames[3] + ":" + leaderboardScores[3];
-	document.getElementById("lb4").innerText = "5." + leaderboardNames[4] + ":" + leaderboardScores[4];
-}
-
-function checkLeaderboard() {
-	//this will check your score and add it to the leaderboard if its in the top 5
-
-	if (score > leaderboardScores[0]) { //if its the new top score
-		currentName = prompt("You just got 1st place on the Leaderboard! Enter your name");
-		leaderboardNames[0] = currentName;
-		leaderboardScores[0] = score;
-	} else if (score > leaderboardScores[1]) {
-		currentName = prompt("You just got 2nd place on the Leaderboard! Enter your name");
-		leaderboardNames[1] = currentName;
-		leaderboardScores[1] = score;
-	} else if (score > leaderboardScores[2]) {
-		currentName = prompt("You just got 3rd place on the Leaderboard! Enter your name");
-		leaderboardNames[2] = currentName;
-		leaderboardScores[2] = score;
-	} else if (score > leaderboardScores[3]) {
-		currentName = prompt("You just got 4th place on the Leaderboard! Enter your name");
-		leaderboardNames[3] = currentName;
-		leaderboardScores[3] = score;
-	} else if (score > leaderboardScores[4]) {
-		currentName = prompt("You just got 5th place on the Leaderboard! Enter your name");
-		leaderboardNames[4] = currentName;
-		leaderboardScores[4] = score;
-	}
-
-	saveLeaderboard();
-}
-
-function saveLeaderboard() {
-	for (i = 0; i < 5; i++) {
-		leaderboardTxt[i] = leaderboardNames[i] + "^:" + leaderboardScores[i];
-	}
-	leaderboardTxt = saveStrings("data/leaderboard/leaderboard.txt");
 }
