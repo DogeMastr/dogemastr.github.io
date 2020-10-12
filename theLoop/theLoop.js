@@ -154,15 +154,15 @@ function draw() {
 		if (keyList.includes(controlList[2])) {
 			reset();
 		}
-		// 	if (keyList.includes("v")) {
-		// 		invisMode = !invisMode;
-		// 		clear();
-		// 		reset();
-		// 	}
-		// 	if (keyList.includes("b")) {
-		// 		hardMode = !hardMode;
-		// 		reset();
-		// 	}
+		 	if (keyList.includes("v")) {
+		 		invisMode = !invisMode;
+		 		clear();
+		 		reset();
+		 	}
+		 	if (keyList.includes("b")) {
+		 		hardMode = !hardMode;
+		 		reset();
+		 	}
 		// 	if (keyList.includes("s")) {
 		// 		slowMode = !slowMode;
 		// 		reset();
