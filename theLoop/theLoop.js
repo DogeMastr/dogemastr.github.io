@@ -152,17 +152,18 @@ function draw() {
 	} else {
 		//in gamemover menu
 		if (keyList.includes(controlList[2])) {
+			clear();
 			reset();
 		}
-		 	if (keyList.includes("v")) {
-		 		invisMode = !invisMode;
-		 		clear();
-		 		reset();
-		 	}
-		 	if (keyList.includes("b")) {
-		 		hardMode = !hardMode;
-		 		reset();
-		 	}
+	 	if (keyList.includes("v")) {
+	 		invisMode = !invisMode;
+	 		clear();
+	 		reset();
+	 	}
+	 	if (keyList.includes("b")) {
+	 		hardMode = !hardMode;
+	 		reset();
+	 	}
 		// 	if (keyList.includes("s")) {
 		// 		slowMode = !slowMode;
 		// 		reset();
