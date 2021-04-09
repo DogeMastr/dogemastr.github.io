@@ -29,14 +29,76 @@ function runContent(){
   text("This is like my 'Hello World' for when I learn something new this is the first thing I make in it!", 30, 260);
   theLoop(30, 270);
   textSize(40);
-  text("Tid bits about The Loop:", 1100, 80);
+  text("Tid bits about The Loop:", 1100, 380);
   textSize(30);
-  text("The first version I made was in 3 days!", 1100, 120);
-  text("I have since updated that version with cool features and a hard mode", 1100, 160);
-  text("Its loosly based off of a mini game in Terry Cavanagh's VVVVVV", 1100, 200);
+  text("The first version I made was in 3 days!", 1100, 420);
+  text("I have since updated that version with cool features and a hard mode", 1100, 460);
+  text("Its loosly based off of a mini game in", 1100, 500);
+  text("Terry Cavanagh's VVVVVV", 1100, 540);
+
+
+  textSize(40);
+  text("Reaction Timer", 30, 800);
+  textSize(30);
+  text("This is to time peoples reaction! My reaction time is about 0.3 seconds", 30, 840);
+  reactionTimer(30,850);
 }
 
+let reactionBackground = 75;
+let circleColour = 255;
+let reTimer = 1000;
+let reRunning = false;
+let reactionString = "your reaction time is: " + reTimer/60 + " seconds";
+function reactionTimer(x, y){
+  translate(x, y);
+  fill(reactionBackground);
+  rect(0,0, 1000,400);
+  fill(255);
+  textAlign(CENTER);
+  text("Click the circle to start",500,130);
+  text("When the screen turns green",500,160);
+  text("Click the circle again",500,190);
+  fill(circleColour);
+  ellipse(500,300,150);
+  if(dist(mouseX-x, mouseY-y, 500,300) < 75){
+    circleColour = color(0,0,255);
+    if(bMousePressed()){
+      reStart();
+    }
+  } else {
+    circleColour = 255;
+  }
+  if(reRunning){
+    reTimer = reTimer + 1;
+    if(reTimer > 0){
+      reactionBackground = color(0,255,0);
+    }
+  } else {
+    fill(255);
+    text(reactionString, 500, 50);
+  }
+}
 
+function reStart(){
+  if(reRunning){
+    if(reTimer > 0){
+      //good reaction time
+      reactionBackground = 75;
+      reactionString = "your reaction time is: " + reTimer/60 + " seconds";
+      if(reTimer < 20){
+        //key time
+      }
+    } else {
+      //you clicked too early
+      reactionString = "You clicked too early!"
+    }
+    reRunning = false;
+  } else {
+    //start the countdown
+    reTimer = getRndInteger(-400, -120);
+    reRunning = true;
+  }
+}
 
 let orangeKeyUnlock = false;
 let keyList = [];
@@ -100,6 +162,11 @@ function theLoop(x, y){
   if(score >= loopHighscore) {
     storeItem("loopHighScoreKey", loopHighscore);
   }
+  fill(255);
+  rect(-100,0, 100, loopHeight+2);
+  fill(0);
+  strokeWeight(1);
+  translate(-x, -y);
 }
 
 class LoopPlayer {
