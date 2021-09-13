@@ -434,13 +434,38 @@ function keyTyped() {
 	}
 }
 
+function keyPressed() {
+	// Tried making this a global const and everything just broke???
+	// Leave me alone im literally a minor????
+	arrowKeys = [LEFT_ARROW, RIGHT_ARROW, UP_ARROW, DOWN_ARROW];
+
+	if (!arrowKeys.includes(keyCode)) {
+		return;
+	}
+
+	if (!keyList.includes(keyCode)) {
+		keyList.push(keyCode);
+	}
+}
+
 function keyReleased() {
+
+	arrowKeys = [LEFT_ARROW, RIGHT_ARROW, UP_ARROW, DOWN_ARROW];
+
+	if (arrowKeys.includes(keyCode)) {
+		var i = keyList.indexOf(keyCode);
+		if (i != -1) {
+			keyList.splice(i, 1);
+		}
+	}
+
 	if (keyList.includes(key)) {
 		var i = keyList.indexOf(key);
 		if (i != -1) {
 			keyList.splice(i, 1);
 		}
 	}
+	return false;
 }
 
 class Player {
@@ -464,10 +489,10 @@ class Player {
 		//image(pSpriteL, this.x, this.y, this.pWidth, this.pWidth);
 	}
 	move() {
-		if (keyList.includes(controlList[0])) {
+		if (keyList.includes(controlList[0]) || keyList.includes(LEFT_ARROW)) {
 			this.x -= this.xSpeed;
 		}
-		if (keyList.includes(controlList[1])) {
+		if (keyList.includes(controlList[1]) || keyList.includes(RIGHT_ARROW)) {
 			this.x += this.xSpeed;
 		}
 		//bouncing on the top and bottom of the screen:
