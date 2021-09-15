@@ -113,7 +113,7 @@ function runFooter(){
 
   //grey
   if(getItem("greyKeyCollected")){
-    fill(14,255,255);
+    fill(108, 115, 139);
   } else {
     fill(50);
   }

@@ -74,5 +74,4 @@ function runContent(){
   textSize(30);
   text("I made this site to put all of my small projects into one place", 30, 520);
   text("You can check out some of my stuff on the portfolio page!", 30, 560);
-  text("~~Embed video here~~", 30,620);
 }

@@ -17,7 +17,7 @@ function draw(){
 
 function runContent(){
   textAlign(LEFT);
-  // fill(0,0,255);
+  fill(0);
   textSize(30);
   text("Yoooo this is where you can be better at the games I made than me", 30, 150);
 
