@@ -3,25 +3,49 @@ var days = 0;
 var hours = 0;
 var minutes = 0;
 var seconds = 1;
+var uiscale = 1;
+var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 function setup(){
-  createCanvas(windowWidth, windowHeight);
+  createCanvas(windowWidth - 20, windowHeight - 20);
   calculateTime();
 }
 
-
-function draw(){
-  calculateTime();
+function drawLandscape(){
   background(255);
-  textSize(300);
+  textSize(uiscale*300);
   textAlign(CENTER, CENTER);
   text(days + ":" + hours + ":" + minutes + ":" + seconds, width/2, height/2);
-  textSize(70);
+  textSize(uiscale*70);
   text("Days", width/6, height/2 + height/6);
   text("Hours", width/6 * 2.3, height/2 + height/6);
   text("Minutes", width/6 * 3.65, height/2 + height/6);
   text("Seconds", width/6 * 5, height/2 + height/6);
 
   text("Counting down to: December 22nd 4pm", width/2, height/10);
+}
+
+function drawPortrait(){
+  background(255);
+  textSize(uiscale*30);
+  text("Counting down to: December 22nd 4pm", width/12, height/10);
+  textAlign(LEFT);
+  textSize(uiscale*90);
+  text("Days: "+ days, width/12, height/6 *2);
+  text("Hours: "+ hours, width/12, height/6 * 3);
+  text("Minutes: "+ minutes, width/12, height/6 * 4);
+  text("Seconds: "+ seconds, width/12, height/6* 5);
+
+}
+
+function draw(){
+  calculateTime();
+  if(width < height || isMobile){
+    drawPortrait();
+    uiscale = map(height, 0, 1080, 0, 1);
+  } else {
+    drawLandscape();
+    uiscale = map(width, 0, 1920, 0, 1);
+  }
 }
 var unixTimeStamp = 1640188800;
 function calculateTime(){
@@ -33,3 +57,7 @@ function calculateTime(){
   seconds = Math.floor((unixDifference / 1) - days*24*60*60 - hours*60*60 - minutes*60);
   // console.log(days);
 }
+
+window.addEventListener('resize', function(event) {
+    setup();
+}, true);
