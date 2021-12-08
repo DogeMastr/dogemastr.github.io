@@ -4,7 +4,10 @@ var hours = 0;
 var minutes = 0;
 var seconds = 1;
 var uiscale = 1;
+<<<<<<< HEAD
 var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+=======
+>>>>>>> 8fbdc72866be9f53bbb09158a0a2db8560d6167a
 function setup(){
   createCanvas(windowWidth - 20, windowHeight - 20);
   calculateTime();
@@ -39,7 +42,11 @@ function drawPortrait(){
 
 function draw(){
   calculateTime();
+<<<<<<< HEAD
   if(width < height || isMobile){
+=======
+  if(width < height){
+>>>>>>> 8fbdc72866be9f53bbb09158a0a2db8560d6167a
     drawPortrait();
     uiscale = map(height, 0, 1080, 0, 1);
   } else {
