@@ -22,13 +22,13 @@ function drawLandscape(){
   text("Minutes", width/6 * 3.65, height/2 + height/6);
   text("Seconds", width/6 * 5, height/2 + height/6);
 
-  text("Counting down to: December 22nd 4pm", width/2, height/10);
+  text("Counting down to: January 9th", width/2, height/10);
 }
 
 function drawPortrait(){
   background(255);
   textSize(uiscale*30);
-  text("Counting down to: December 22nd 4pm", width/12, height/10);
+  text("Counting down to: January 9th", width/12, height/10);
   textAlign(LEFT);
   textSize(uiscale*90);
   text("Days: "+ days, width/12, height/6 *2);
@@ -48,7 +48,7 @@ function draw(){
     uiscale = map(width, 0, 1920, 0, 1);
   }
 }
-var unixTimeStamp = 1640188800;
+var unixTimeStamp = 1641600000;
 function calculateTime(){
   const unixTime = Math.floor(Date.now() / 1000);
   var unixDifference = unixTimeStamp - unixTime;
