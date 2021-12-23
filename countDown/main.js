@@ -5,17 +5,62 @@ var minutes = 0;
 var seconds = 1;
 var uiscale = 1;
 var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+var darkMode = true;
+var cBacking;
+var cText;
+
+let bulbWhite;
+let bulbBlack;
+let bulbCurrent;
+
+function preload(){
+  bulbWhite = loadImage('data/bulbWhite.png');
+  bulbBlack = loadImage('data/bulbBlack.png');
+}
+
 function setup(){
+  imageMode(CENTER);
   isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-  createCanvas(windowWidth - 20, windowHeight - 20);
+  runDarkMode();
+  createCanvas(windowWidth, windowHeight + 50);
   calculateTime();
+  unloadScrollBars();
+  noStroke();
+}
+
+function runDarkMode(){
+  if(darkMode){
+    cText = color(197, 201, 221);
+    cBacking = color(38, 40, 49);
+    bulbCurrent = bulbBlack;
+  } else {
+    cText = color(80, 80, 80);
+    cBacking = color(220, 218, 224);
+    bulbCurrent = bulbWhite;
+  }
+}
+
+function darkModeButton(x, y, size){
+  if(darkMode){
+    fill(197, 201, 221);
+  } else {
+    fill(80, 80, 80);
+  }
+  ellipse(x, y, size);
+  image(bulbCurrent, x, y, size/1.4, size/1.4);
+  if(dist(x, y, mouseX, mouseY) < size/2){
+    if(bMousePressed()){
+      darkMode = !darkMode;
+    }
+  }
 }
 
 function drawLandscape(){
-  background(255);
+  background(cBacking);
   textSize(uiscale*300);
   textAlign(CENTER, CENTER);
-  text(days + ":" + hours + ":" + minutes + ":" + seconds, width/2, height/2);
+  fill(cText);
+  text(formatTimeToString(days) + ":" + formatTimeToString(hours) + ":" + formatTimeToString(minutes) + ":" + formatTimeToString(seconds), width/2, height/2);
   textSize(uiscale*70);
   text("Days", width/6, height/2 + height/6);
   text("Hours", width/6 * 2.3, height/2 + height/6);
@@ -36,9 +81,11 @@ function drawPortrait(){
   text("Minutes: "+ minutes, width/12, height/6 * 4);
   text("Seconds: "+ seconds, width/12, height/6* 5);
 
+  darkModeButton(width - width/8, height/10, uiscale*80);
 }
 
 function draw(){
+  runDarkMode();
   calculateTime();
   if(width < height || isMobile){
     drawPortrait();
@@ -59,6 +106,32 @@ function calculateTime(){
   // console.log(days);
 }
 
-window.addEventListener('resize', function(event) {
+let bMouseFirstFrame = false;
+function bMousePressed(){
+  if(mouseIsPressed && bMouseFirstFrame == false){
+    bMouseFirstFrame = true;
+    return true;
+  }
+  if(!mouseIsPressed){
+    bMouseFirstFrame = false;
+  }
+  return false;
+}
+
+function formatTimeToString(n){
+    return n > 9 ? "" + n: "0" + n;
+}
+
+function reloadScrollBars() {
+    document.documentElement.style.overflow = 'auto';  // firefox, chrome
+    document.body.scroll = "yes"; // ie only
+}
+
+function unloadScrollBars() {
+    document.documentElement.style.overflow = 'hidden';  // firefox, chrome
+    document.body.scroll = "no"; // ie only
+}
+
+window.addEventListener('resize', function() {
     setup();
 }, true);
