@@ -72,7 +72,8 @@ function drawLandscape(){
 }
 
 function drawPortrait(){
-  background(255);
+  background(cBacking);
+  fill(cText);
   textSize(uiscale*30);
   text("Counting down to: January 9th", width/12, height/10);
   textAlign(LEFT);
