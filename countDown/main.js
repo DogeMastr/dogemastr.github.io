@@ -67,6 +67,8 @@ function drawLandscape(){
   text("Minutes", width/6 * 3.65, height/2 + height/6);
   text("Seconds", width/6 * 5, height/2 + height/6);
   text("Counting down to: January 9th", width/2, height/10);
+
+  darkModeButton(width - width/8, height/10, uiscale*80);
 }
 
 function drawPortrait(){
