@@ -75,7 +75,7 @@ function drawPortrait(){
   background(cBacking);
   fill(cText);
   textSize(uiscale*30);
-  text("Counting down to: January 9th", width/12, height/10);
+  text("Counting down to: June 3rd", width/12, height/10);
   textAlign(LEFT);
   textSize(uiscale*90);
   text("Days: "+ days, width/12, height/6 *2);
@@ -98,7 +98,7 @@ function draw(){
   }
 }
 
-var unixTimeStamp = 1641600000;
+var unixTimeStamp = 1654224300;
 function calculateTime(){
   const unixTime = Math.floor(Date.now() / 1000);
   var unixDifference = unixTimeStamp - unixTime;
