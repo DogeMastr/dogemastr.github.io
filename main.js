@@ -22,11 +22,18 @@ function setup() {
 }
 
 function draw() {
+	fill(0);
 	drawBackground();
 
-	drawTitleCard();
-	drawTheLoopInfoPlate(50, 250);
-	drawBTBGInfoPlate(550, 250);
+	if (bMousePressed()) {
+		mode++;
+		initBackground();
+		fill(0);
+	}
+	mode = mode % maxModes;
+	// drawTitleCard();
+	// drawTheLoopInfoPlate(50, 250);
+	// drawBTBGInfoPlate(550, 250);
 }
 
 function drawTheLoopInfoPlate(x, y) {
@@ -93,10 +100,11 @@ let pointList = [];
 let unit = 30;
 let pointListSize;
 let adj = unit / 2;
-let mode = Math.floor(Math.random() * 3);
+let mode = 4;
+let maxModes = 6;
+let angle;
 
 function initBackground() {
-	createCanvas(window.innerWidth, window.innerHeight);
 	noStroke();
 
 	let widthCount = window.innerWidth / unit;
@@ -153,11 +161,14 @@ class Point {
 		this.colour = 0;
 	}
 
+	collide(){
+		return (dist(mouseX, mouseY, this.x, this.y) < this.distance / 2)
+	}
 	update() {
 		switch (mode) {
-			default:
+			// default:
 			case 0:
-				let angle = getAngle(this.givenX, this.givenY, mouseX, mouseY);
+				angle = getAngle(this.givenX, this.givenY, mouseX, mouseY);
 				this.x = this.givenX + (this.distance / 10) * cos(angle);
 				this.y = this.givenY + (this.distance / 10) * sin(angle);
 				break;
@@ -166,10 +177,25 @@ class Point {
 				this.size = (this.size / dist(0, 0, width, height)) * 400;
 				break;
 			case 2:
-				if (dist(mouseX, mouseY, this.x, this.y) < this.distance / 2) {
+				angle = getAngle(this.givenX, this.givenY, mouseX, mouseY);
+				this.x = this.givenX - (this.distance / 10) * cos(angle);
+				this.y = this.givenY - (this.distance / 10) * sin(angle);
+				break;
+			case 3:
+				if (this.collide()) {
 					this.colour = 175;
 				}
 				this.colour--;
+				break;
+			case 4:
+				angle = getAngle(this.givenX, this.givenY, mouseX, mouseY);
+				this.x = this.givenX + (this.distance / 10) * cos(angle);
+				this.y = this.givenY + (this.distance / 10) * sin(angle);
+				break;
+			case 5:
+				if(this.collide()){
+					this.colour = 175;
+				}
 				break;
 		}
 	}
@@ -182,11 +208,22 @@ class Point {
 				ellipse(this.x, this.y, this.size, this.size);
 				break;
 			case 1:
+			case 5:
 				fill(0);
 				ellipse(this.x, this.y, this.size, this.size);
-			case 2:
+			case 3:
 				fill(this.colour);
 				ellipse(this.x, this.y, this.size, this.size);
+				break;
+			case 4:
+				fill(175);
+				stroke(175);
+				strokeWeight(1);
+				// ellipse(this.x, this.y, this.size, this.size);
+				line(this.x, this.y, this.x + this.size*3, this.y + this.size*3);
+				line(this.x, this.y, this.x + this.size*3, this.y);
+				line(this.x, this.y, this.x, this.y + this.size*3);
+				break;
 		}
 	}
 }
