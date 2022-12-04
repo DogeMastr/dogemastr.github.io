@@ -1,7 +1,5 @@
 /*
-    Josh Wynne, N00221586
-    11/11/2022
-    CA Iteration 2
+bro stfu
 
 	Click and drag the assets on the left side to make your snowman!
 	Hold Z while holding an object to rotate it
