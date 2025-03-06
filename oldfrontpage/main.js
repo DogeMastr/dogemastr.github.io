@@ -10,10 +10,6 @@ function bMousePressed() {
 	}
 	return false;
 }
-function preload() {
-	nameplatelong = loadImage("data/nameplatelong.png");
-	font = loadFont("data/AzeretMono.ttf");
-}
 
 function setup() {
 	createCanvas(windowWidth, windowHeight);
